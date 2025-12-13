@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CosmoTime — World Clock</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      color: #ffffff;
+      background: radial-gradient(circle at 20% 20%, #2b1055, #000000 60%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 120px 180px, #8fd3ff, transparent),
+        radial-gradient(1px 1px at 260px 90px, #fff, transparent),
+        radial-gradient(2px 2px at 400px 240px, #ff9dff, transparent),
+        radial-gradient(1px 1px at 520px 140px, #fff, transparent),
+        radial-gradient(2px 2px at 650px 320px, #b0f3ff, transparent),
+        radial-gradient(1px 1px at 780px 200px, #fff, transparent),
+        radial-gradient(2px 2px at 900px 100px, #ffe6ff, transparent),
+        radial-gradient(1px 1px at 1050px 260px, #fff, transparent);
+      background-size: 1200px 700px;
+      opacity: 0.85;
+      pointer-events: none;
+      animation: starsMove 80s linear infinite;
+    }
+
+    @keyframes starsMove {
+      from { transform: translateY(0); }
+      to { transform: translateY(-700px); }
+    }
+
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #00f2ff, #ff00f7, #ffe600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      animation: glow 4s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 5px #00f2ff); }
+      to { filter: drop-shadow(0 0 20px #ff00f7); }
+    }
+
+    .subtitle {
+      color: #cfcfff;
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+    }
+
+    .clocks {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .clock {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(6px);
+      border-radius: 18px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .clock:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 30px rgba(0,255,255,0.25);
+    }
+
+    .city {
+      font-size: 1.05rem;
+      color: #00f2ff;
+      margin-bottom: 6px;
+    }
+
+    .time {
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .date {
+      font-size: 0.9rem;
+      color: #bbb;
+      margin-top: 4px;
+    }
+
+    .ad {
+      margin: 40px 0;
+      padding: 20px;
+      border-radius: 14px;
+      border: 2px dashed rgba(255,255,255,0.3);
+      background: rgba(0,0,0,0.4);
+      color: #ffe600;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    footer a {
+      color: #aaa;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    footer a:hover {
+      color: #00f2ff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>CosmoTime ⏰</h1>
+    <p class="subtitle">Beautiful & useful world clock in real time</p>
+
+    <div class="clocks">
+      <div class="clock"><div class="city">🌍 UTC</div><div class="time" id="utc"></div><div class="date" id="utc-date"></div></div>
+      <div class="clock"><div class="city">🇷🇺 Moscow</div><div class="time" id="msk"></div><div class="date" id="msk-date"></div></div>
+      <div class="clock"><div class="city">🇺🇸 New York</div><div class="time" id="ny"></div><div class="date" id="ny-date"></div></div>
+      <div class="clock"><div class="city">🇬🇧 London</div><div class="time" id="london"></div><div class="date" id="london-date"></div></div>
+      <div class="clock"><div class="city">🇩🇪 Berlin</div><div class="time" id="berlin"></div><div class="date" id="berlin-date"></div></div>
+      <div class="clock"><div class="city">🇫🇷 France (Paris)</div><div class="time" id="paris"></div><div class="date" id="paris-date"></div></div>
+
+      <div class="clock"><div class="city">🇯🇵 Tokyo</div><div class="time" id="tokyo"></div><div class="date" id="tokyo-date"></div></div>
+      <div class="clock"><div class="city">🇨🇳 China (Beijing)</div><div class="time" id="china"></div><div class="date" id="china-date"></div></div>
+      <div class="clock"><div class="city">🇸🇬 Singapore</div><div class="time" id="singapore"></div><div class="date" id="singapore-date"></div></div>
+      <div class="clock"><div class="city">🇹🇷 Turkey (Istanbul)</div><div class="time" id="turkey"></div><div class="date" id="turkey-date"></div></div>
+      <div class="clock"><div class="city">🇦🇺 Sydney</div><div class="time" id="sydney"></div><div class="date" id="sydney-date"></div></div>
+      <div class="clock"><div class="city">🇦🇪 Dubai</div><div class="time" id="dubai"></div><div class="date" id="dubai-date"></div></div>
+    </div>
+
+    <div class="ad">🚀 AD SPACE 🚀<br>(Yandex / Google Ads)</div>
+
+    <footer>
+      © 2025 CosmoTime •
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="contacts.html">Contacts</a>
+    </footer>
+  </div>
+
+  <script>
+    function updateTime() {
+      const timeOpt = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      const dateOpt = { weekday: 'short', day: '2-digit', month: 'short' };
+
+      const zones = {
+        utc: 'UTC',
+        msk: 'Europe/Moscow',
+        ny: 'America/New_York',
+        london: 'Europe/London',
+        berlin: 'Europe/Berlin',
+        paris: 'Europe/Paris',
+        tokyo: 'Asia/Tokyo',
+        china: 'Asia/Shanghai',
+        singapore: 'Asia/Singapore',
+        turkey: 'Europe/Istanbul',
+        sydney: 'Australia/Sydney',
+        dubai: 'Asia/Dubai'
+      };
+
+      for (const id in zones) {
+        const now = new Date();
+        document.getElementById(id).textContent =
+          now.toLocaleTimeString('en-US', { ...timeOpt, timeZone: zones[id] });
+        document.getElementById(id + '-date').textContent =
+          now.toLocaleDateString('en-US', { ...dateOpt, timeZone: zones[id] });
+      }
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>
