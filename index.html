@@ -1,216 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CosmoTime — World Clock</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CosmoTime — World Clock</title>
 
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-    body {
-      min-height: 100vh;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      color: #ffffff;
-      background: radial-gradient(circle at 20% 20%, #2b1055, #000000 60%);
-      overflow-x: hidden;
-    }
+body{
+  min-height:100vh;
+  font-family:'Segoe UI',Tahoma,sans-serif;
+  color:#fff;
+  background:radial-gradient(circle at 20% 20%,#2b1055,#000 60%);
+  overflow-x:hidden;
+}
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-        radial-gradient(2px 2px at 120px 180px, #8fd3ff, transparent),
-        radial-gradient(1px 1px at 260px 90px, #fff, transparent),
-        radial-gradient(2px 2px at 400px 240px, #ff9dff, transparent),
-        radial-gradient(1px 1px at 520px 140px, #fff, transparent),
-        radial-gradient(2px 2px at 650px 320px, #b0f3ff, transparent),
-        radial-gradient(1px 1px at 780px 200px, #fff, transparent),
-        radial-gradient(2px 2px at 900px 100px, #ffe6ff, transparent),
-        radial-gradient(1px 1px at 1050px 260px, #fff, transparent);
-      background-size: 1200px 700px;
-      opacity: 0.85;
-      pointer-events: none;
-      animation: starsMove 80s linear infinite;
-    }
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(2px 2px at 20px 30px,#fff,transparent),
+    radial-gradient(2px 2px at 120px 180px,#8fd3ff,transparent),
+    radial-gradient(1px 1px at 260px 90px,#fff,transparent),
+    radial-gradient(2px 2px at 400px 240px,#ff9dff,transparent);
+  background-size:1200px 700px;
+  opacity:.85;
+  pointer-events:none;
+  animation:starsMove 80s linear infinite;
+}
 
-    @keyframes starsMove {
-      from { transform: translateY(0); }
-      to { transform: translateY(-700px); }
-    }
+@keyframes starsMove{
+  from{transform:translateY(0)}
+  to{transform:translateY(-700px)}
+}
 
-    .wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 60px 20px;
-      text-align: center;
-    }
+.wrapper{
+  max-width:1200px;
+  margin:auto;
+  padding:60px 20px;
+  text-align:center;
+}
 
-    h1 {
-      font-size: 3rem;
-      background: linear-gradient(90deg, #00f2ff, #ff00f7, #ffe600);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    }
+h1{
+  font-size:3rem;
+  background:linear-gradient(90deg,#00f2ff,#ff00f7,#ffe600);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
 
-    .subtitle {
-      color: #cfcfff;
-      margin-bottom: 30px;
-      font-size: 1.2rem;
-    }
+.subtitle{
+  color:#cfcfff;
+  margin-bottom:30px;
+  font-size:1.2rem;
+}
 
-    section.info {
-      max-width: 900px;
-      margin: 0 auto 50px;
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #ddd;
-      text-align: left;
-    }
+/* INFO CONTENT */
+section.info{
+  max-width:900px;
+  margin:0 auto 50px;
+  font-size:1.05rem;
+  line-height:1.7;
+  color:#ddd;
+  text-align:left;
+}
+section.info p{margin-bottom:16px}
 
-    section.info p {
-      margin-bottom: 16px;
-    }
+/* CLOCKS */
+.clocks{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
 
-    .clocks {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
+.clock{
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(6px);
+  border-radius:18px;
+  padding:22px;
+  border:1px solid rgba(255,255,255,.12);
+  cursor:pointer;
+  transition:.3s;
+}
 
-    .clock {
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(6px);
-      border-radius: 18px;
-      padding: 22px;
-      border: 1px solid rgba(255,255,255,0.12);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
+.clock:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 30px rgba(0,255,255,.25);
+}
 
-    .clock:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 30px rgba(0,255,255,0.25);
-    }
+.city{color:#00f2ff;margin-bottom:6px}
+.time{font-size:2rem}
+.date{font-size:.9rem;color:#bbb}
 
-    .city {
-      font-size: 1.05rem;
-      color: #00f2ff;
-      margin-bottom: 6px;
-    }
+/* 🔥 FOCUS MODE */
+#focusView{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center,#1a0033,#000);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:10;
+}
 
-    .time {
-      font-size: 2rem;
-      letter-spacing: 1px;
-    }
+#focusCity{
+  font-size:2.6rem;
+  color:#00f2ff;
+}
 
-    .date {
-      font-size: 0.9rem;
-      color: #bbb;
-      margin-top: 4px;
-    }
+#focusTime{
+  font-size:5rem;
+  margin:20px 0;
+}
 
-    footer {
-      margin-top: 60px;
-      font-size: 0.9rem;
-      color: #aaa;
-    }
+#focusDate{
+  color:#bbb;
+  font-size:1.2rem;
+}
 
-    footer a {
-      color: #aaa;
-      text-decoration: none;
-      margin: 0 8px;
-    }
+.backBtn{
+  margin-top:40px;
+  padding:12px 32px;
+  border:none;
+  border-radius:30px;
+  background:#00f2ff;
+  color:#000;
+  font-size:1rem;
+  cursor:pointer;
+}
 
-    footer a:hover {
-      color: #00f2ff;
-    }
-  </style>
+footer{
+  margin-top:60px;
+  font-size:.9rem;
+  color:#aaa;
+}
+
+footer a{
+  color:#aaa;
+  text-decoration:none;
+  margin:0 8px;
+}
+
+footer a:hover{color:#00f2ff}
+</style>
 </head>
 
 <body>
-  <div class="wrapper">
-    <h1>CosmoTime ⏰</h1>
-    <p class="subtitle">A beautiful and useful world clock in real time</p>
 
-    <!-- Контентный блок (КЛЮЧЕВО ДЛЯ РСЯ) -->
-    <section class="info">
-      <p>
-        <strong>CosmoTime</strong> is an informational web service that displays
-        the current local time in major cities around the world.
-      </p>
-      <p>
-        The project is designed for people who work with international teams,
-        travel across time zones, or simply need quick access to accurate global time.
-      </p>
-      <p>
-        All time values are calculated in real time using official time zone data,
-        including daylight saving adjustments.
-      </p>
-      <p>
-        CosmoTime is free to use and does not require registration.
-      </p>
-    </section>
+<!-- MAIN VIEW -->
+<div class="wrapper" id="mainView">
+  <h1>CosmoTime ⏰</h1>
+  <p class="subtitle">A beautiful and useful world clock in real time</p>
 
-    <!-- ЧАСЫ -->
-    <div class="clocks">
-      <div class="clock"><div class="city">🌍 UTC</div><div class="time" id="utc"></div><div class="date" id="utc-date"></div></div>
-      <div class="clock"><div class="city">🇷🇺 Moscow</div><div class="time" id="msk"></div><div class="date" id="msk-date"></div></div>
-      <div class="clock"><div class="city">🇺🇸 New York</div><div class="time" id="ny"></div><div class="date" id="ny-date"></div></div>
-      <div class="clock"><div class="city">🇬🇧 London</div><div class="time" id="london"></div><div class="date" id="london-date"></div></div>
-      <div class="clock"><div class="city">🇩🇪 Berlin</div><div class="time" id="berlin"></div><div class="date" id="berlin-date"></div></div>
-      <div class="clock"><div class="city">🇫🇷 Paris</div><div class="time" id="paris"></div><div class="date" id="paris-date"></div></div>
-      <div class="clock"><div class="city">🇯🇵 Tokyo</div><div class="time" id="tokyo"></div><div class="date" id="tokyo-date"></div></div>
-      <div class="clock"><div class="city">🇨🇳 Beijing</div><div class="time" id="china"></div><div class="date" id="china-date"></div></div>
-      <div class="clock"><div class="city">🇸🇬 Singapore</div><div class="time" id="singapore"></div><div class="date" id="singapore-date"></div></div>
-      <div class="clock"><div class="city">🇹🇷 Istanbul</div><div class="time" id="turkey"></div><div class="date" id="turkey-date"></div></div>
-      <div class="clock"><div class="city">🇦🇺 Sydney</div><div class="time" id="sydney"></div><div class="date" id="sydney-date"></div></div>
-      <div class="clock"><div class="city">🇦🇪 Dubai</div><div class="time" id="dubai"></div><div class="date" id="dubai-date"></div></div>
-    </div>
+  <section class="info">
+    <p><strong>CosmoTime</strong> is an informational web service that displays the current local time in major cities around the world.</p>
+    <p>The project is designed for people who work with international teams, travel across time zones, or need quick access to accurate global time.</p>
+    <p>All time values are calculated in real time using official time zone data, including daylight saving adjustments.</p>
+    <p>CosmoTime is free to use and does not require registration.</p>
+  </section>
 
-    <footer>
-      © 2025 CosmoTime •
-      <a href="about.html">About</a> |
-      <a href="articles.html">Articles</a> |
-      <a href="privacy.html">Privacy Policy</a> |
-      <a href="contacts.html">Contacts</a>
-    </footer>
+  <div class="clocks">
+
+  <div class="clock" data-city="UTC" data-zone="UTC">
+    <div class="city">🌍 UTC</div>
+    <div class="time" id="utc"></div>
+    <div class="date" id="utc-date"></div>
   </div>
 
-  <script>
-    function updateTime() {
-      const timeOpt = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-      const dateOpt = { weekday: 'short', day: '2-digit', month: 'short' };
+  <div class="clock" data-city="Moscow" data-zone="Europe/Moscow">
+    <div class="city">🇷🇺 Moscow</div>
+    <div class="time" id="msk"></div>
+    <div class="date" id="msk-date"></div>
+  </div>
 
-      const zones = {
-        utc: 'UTC',
-        msk: 'Europe/Moscow',
-        ny: 'America/New_York',
-        london: 'Europe/London',
-        berlin: 'Europe/Berlin',
-        paris: 'Europe/Paris',
-        tokyo: 'Asia/Tokyo',
-        china: 'Asia/Shanghai',
-        singapore: 'Asia/Singapore',
-        turkey: 'Europe/Istanbul',
-        sydney: 'Australia/Sydney',
-        dubai: 'Asia/Dubai'
-      };
+  <div class="clock" data-city="New York" data-zone="America/New_York">
+    <div class="city">🇺🇸 New York</div>
+    <div class="time" id="ny"></div>
+    <div class="date" id="ny-date"></div>
+  </div>
 
-      for (const id in zones) {
-        const now = new Date();
-        document.getElementById(id).textContent =
-          now.toLocaleTimeString('en-US', { ...timeOpt, timeZone: zones[id] });
-        document.getElementById(id + '-date').textContent =
-          now.toLocaleDateString('en-US', { ...dateOpt, timeZone: zones[id] });
-      }
-    }
+  <div class="clock" data-city="London" data-zone="Europe/London">
+    <div class="city">🇬🇧 London</div>
+    <div class="time" id="london"></div>
+    <div class="date" id="london-date"></div>
+  </div>
 
-    updateTime();
-    setInterval(updateTime, 1000);
-  </script>
+  <div class="clock" data-city="Berlin" data-zone="Europe/Berlin">
+    <div class="city">🇩🇪 Berlin</div>
+    <div class="time" id="berlin"></div>
+    <div class="date" id="berlin-date"></div>
+  </div>
+
+  <div class="clock" data-city="Paris" data-zone="Europe/Paris">
+    <div class="city">🇫🇷 Paris</div>
+    <div class="time" id="paris"></div>
+    <div class="date" id="paris-date"></div>
+  </div>
+
+  <div class="clock" data-city="Tokyo" data-zone="Asia/Tokyo">
+    <div class="city">🇯🇵 Tokyo</div>
+    <div class="time" id="tokyo"></div>
+    <div class="date" id="tokyo-date"></div>
+  </div>
+
+  <div class="clock" data-city="Beijing" data-zone="Asia/Shanghai">
+    <div class="city">🇨🇳 Beijing</div>
+    <div class="time" id="china"></div>
+    <div class="date" id="china-date"></div>
+  </div>
+
+  <div class="clock" data-city="Singapore" data-zone="Asia/Singapore">
+    <div class="city">🇸🇬 Singapore</div>
+    <div class="time" id="singapore"></div>
+    <div class="date" id="singapore-date"></div>
+  </div>
+
+  <div class="clock" data-city="Istanbul" data-zone="Europe/Istanbul">
+    <div class="city">🇹🇷 Istanbul</div>
+    <div class="time" id="turkey"></div>
+    <div class="date" id="turkey-date"></div>
+  </div>
+
+  <div class="clock" data-city="Sydney" data-zone="Australia/Sydney">
+    <div class="city">🇦🇺 Sydney</div>
+    <div class="time" id="sydney"></div>
+    <div class="date" id="sydney-date"></div>
+  </div>
+
+  <div class="clock" data-city="Dubai" data-zone="Asia/Dubai">
+    <div class="city">🇦🇪 Dubai</div>
+    <div class="time" id="dubai"></div>
+    <div class="date" id="dubai-date"></div>
+  </div>
+
+</div>
+
+
+  <footer>
+    © 2025 CosmoTime •
+    <a href="about.html">About</a> |
+    <a href="articles.html">Articles</a> |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="contacts.html">Contacts</a>
+  </footer>
+</div>
+
+<!-- 🔥 FOCUS VIEW -->
+<div id="focusView">
+  <div id="focusCity"></div>
+  <div id="focusTime"></div>
+  <div id="focusDate"></div>
+  <button class="backBtn" onclick="closeFocus()">← Back to world clock</button>
+</div>
+
+<script>
+const clocks=document.querySelectorAll('.clock');
+const focusView=document.getElementById('focusView');
+const mainView=document.getElementById('mainView');
+const focusCity=document.getElementById('focusCity');
+const focusTime=document.getElementById('focusTime');
+const focusDate=document.getElementById('focusDate');
+
+let focusZone=null;
+
+function updateTime(){
+  const timeOpt={hour:'2-digit',minute:'2-digit',second:'2-digit'};
+  const dateOpt={weekday:'short',day:'2-digit',month:'short'};
+
+  clocks.forEach(c=>{
+    const zone=c.dataset.zone;
+    const id=c.querySelector('.time').id;
+    document.getElementById(id).textContent=
+      new Date().toLocaleTimeString('en-US',{...timeOpt,timeZone:zone});
+    document.getElementById(id+'-date').textContent=
+      new Date().toLocaleDateString('en-US',{...dateOpt,timeZone:zone});
+  });
+
+  if(focusZone){
+    const now=new Date();
+    focusTime.textContent=now.toLocaleTimeString('en-US',{...timeOpt,timeZone:focusZone});
+    focusDate.textContent=now.toLocaleDateString('en-US',{...dateOpt,timeZone:focusZone});
+  }
+}
+
+clocks.forEach(c=>{
+  c.onclick=()=>{
+    focusZone=c.dataset.zone;
+    focusCity.textContent=c.dataset.city;
+    mainView.style.display='none';
+    focusView.style.display='flex';
+  };
+});
+
+function closeFocus(){
+  focusZone=null;
+  focusView.style.display='none';
+  mainView.style.display='block';
+}
+
+updateTime();
+setInterval(updateTime,1000);
+</script>
+
 </body>
 </html>
