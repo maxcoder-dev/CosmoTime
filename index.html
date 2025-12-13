@@ -16,26 +16,6 @@ body{
   overflow-x:hidden;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(2px 2px at 20px 30px,#fff,transparent),
-    radial-gradient(2px 2px at 120px 180px,#8fd3ff,transparent),
-    radial-gradient(1px 1px at 260px 90px,#fff,transparent),
-    radial-gradient(2px 2px at 400px 240px,#ff9dff,transparent);
-  background-size:1200px 700px;
-  opacity:.85;
-  pointer-events:none;
-  animation:starsMove 80s linear infinite;
-}
-
-@keyframes starsMove{
-  from{transform:translateY(0)}
-  to{transform:translateY(-700px)}
-}
-
 .wrapper{
   max-width:1200px;
   margin:auto;
@@ -57,18 +37,14 @@ h1{
   font-size:1.2rem;
 }
 
-/* INFO CONTENT */
 section.info{
   max-width:900px;
   margin:0 auto 50px;
-  font-size:1.05rem;
   line-height:1.7;
   color:#ddd;
   text-align:left;
 }
-section.info p{margin-bottom:16px}
 
-/* CLOCKS */
 .clocks{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -94,7 +70,13 @@ section.info p{margin-bottom:16px}
 .time{font-size:2rem}
 .date{font-size:.9rem;color:#bbb}
 
-/* 🔥 FOCUS MODE */
+footer{
+  margin-top:60px;
+  font-size:.9rem;
+  color:#aaa;
+}
+
+/* FOCUS MODE */
 #focusView{
   position:fixed;
   inset:0;
@@ -106,20 +88,9 @@ section.info p{margin-bottom:16px}
   z-index:10;
 }
 
-#focusCity{
-  font-size:2.6rem;
-  color:#00f2ff;
-}
-
-#focusTime{
-  font-size:5rem;
-  margin:20px 0;
-}
-
-#focusDate{
-  color:#bbb;
-  font-size:1.2rem;
-}
+#focusCity{font-size:2.6rem;color:#00f2ff}
+#focusTime{font-size:5rem;margin:20px 0}
+#focusDate{color:#bbb;font-size:1.2rem}
 
 .backBtn{
   margin-top:40px;
@@ -128,41 +99,23 @@ section.info p{margin-bottom:16px}
   border-radius:30px;
   background:#00f2ff;
   color:#000;
-  font-size:1rem;
   cursor:pointer;
 }
-
-footer{
-  margin-top:60px;
-  font-size:.9rem;
-  color:#aaa;
-}
-
-footer a{
-  color:#aaa;
-  text-decoration:none;
-  margin:0 8px;
-}
-
-footer a:hover{color:#00f2ff}
 </style>
 </head>
 
 <body>
 
-<!-- MAIN VIEW -->
 <div class="wrapper" id="mainView">
   <h1>CosmoTime ⏰</h1>
   <p class="subtitle">A beautiful and useful world clock in real time</p>
 
   <section class="info">
-    <p><strong>CosmoTime</strong> is an informational web service that displays the current local time in major cities around the world.</p>
-    <p>The project is designed for people who work with international teams, travel across time zones, or need quick access to accurate global time.</p>
-    <p>All time values are calculated in real time using official time zone data, including daylight saving adjustments.</p>
-    <p>CosmoTime is free to use and does not require registration.</p>
+    <p><strong>CosmoTime</strong> shows the current local time in major cities worldwide.</p>
+    <p>Perfect for remote work, travel, and global communication.</p>
   </section>
 
-  <div class="clocks">
+ <div class="clocks">
 
   <div class="clock" data-city="UTC" data-zone="UTC">
     <div class="city">🌍 UTC</div>
@@ -239,21 +192,14 @@ footer a:hover{color:#00f2ff}
 </div>
 
 
-  <footer>
-    © 2025 CosmoTime •
-    <a href="about.html">About</a> |
-    <a href="articles.html">Articles</a> |
-    <a href="privacy.html">Privacy Policy</a> |
-    <a href="contacts.html">Contacts</a>
-  </footer>
+  <footer>© 2025 CosmoTime</footer>
 </div>
 
-<!-- 🔥 FOCUS VIEW -->
 <div id="focusView">
   <div id="focusCity"></div>
   <div id="focusTime"></div>
   <div id="focusDate"></div>
-  <button class="backBtn" onclick="closeFocus()">← Back to world clock</button>
+  <button class="backBtn" onclick="closeFocus()">← Back</button>
 </div>
 
 <script>
@@ -266,23 +212,22 @@ const focusDate=document.getElementById('focusDate');
 
 let focusZone=null;
 
-function updateTime(){
-  const timeOpt={hour:'2-digit',minute:'2-digit',second:'2-digit'};
-  const dateOpt={weekday:'short',day:'2-digit',month:'short'};
+function update(){
+  const tOpt={hour:'2-digit',minute:'2-digit',second:'2-digit'};
+  const dOpt={weekday:'short',day:'2-digit',month:'short'};
 
   clocks.forEach(c=>{
-    const zone=c.dataset.zone;
-    const id=c.querySelector('.time').id;
-    document.getElementById(id).textContent=
-      new Date().toLocaleTimeString('en-US',{...timeOpt,timeZone:zone});
-    document.getElementById(id+'-date').textContent=
-      new Date().toLocaleDateString('en-US',{...dateOpt,timeZone:zone});
+    const now=new Date();
+    c.querySelector('.time').textContent=
+      now.toLocaleTimeString('en-US',{...tOpt,timeZone:c.dataset.zone});
+    c.querySelector('.date').textContent=
+      now.toLocaleDateString('en-US',{...dOpt,timeZone:c.dataset.zone});
   });
 
   if(focusZone){
     const now=new Date();
-    focusTime.textContent=now.toLocaleTimeString('en-US',{...timeOpt,timeZone:focusZone});
-    focusDate.textContent=now.toLocaleDateString('en-US',{...dateOpt,timeZone:focusZone});
+    focusTime.textContent=now.toLocaleTimeString('en-US',{...tOpt,timeZone:focusZone});
+    focusDate.textContent=now.toLocaleDateString('en-US',{...dOpt,timeZone:focusZone});
   }
 }
 
@@ -301,8 +246,8 @@ function closeFocus(){
   mainView.style.display='block';
 }
 
-updateTime();
-setInterval(updateTime,1000);
+update();
+setInterval(update,1000);
 </script>
 
 </body>
