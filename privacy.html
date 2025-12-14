@@ -3,8 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <title>Privacy Policy — CosmoTime</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #0b1a2a, #000);
+      color: #eaeaea;
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+        radial-gradient(1px 1px at 60% 70%, #8fd3ff, transparent),
+        radial-gradient(1px 1px at 80% 40%, #fff, transparent);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    header {
+      padding: 24px 20px;
+      border-bottom: 1px solid #1f2f44;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 30px;
+      color: #7fd7ff;
+      margin-bottom: 10px;
+    }
+
+    nav a {
+      color: #bcdcff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 850px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    main h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .policy-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 36px;
+      backdrop-filter: blur(6px);
+    }
+
+    .policy-box p {
+      margin-bottom: 18px;
+      font-size: 16px;
+      color: #ddd;
+    }
+
+    .policy-box strong {
+      color: #00f2ff;
+      font-weight: 500;
+    }
+
+    footer {
+      border-top: 1px solid #1f2f44;
+      padding: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
 </head>
+
 <body>
 
 <header>
@@ -21,33 +114,37 @@
 <main>
   <h2>Privacy Policy</h2>
 
-  <p>
-    The CosmoTime website respects user privacy.
-  </p>
+  <div class="policy-box">
+    <p>
+      The <strong>CosmoTime</strong> website respects the privacy of its users
+      and is committed to transparency regarding data usage.
+    </p>
 
-  <p>
-    We do not collect, store, or process personal data.
-    There are no registration forms or user accounts on this website.
-  </p>
+    <p>
+      This website does <strong>not collect, store, or process personal data</strong>.
+      There are no registration forms, user accounts, or tracking systems
+      requiring personal information.
+    </p>
 
-  <p>
-    Third-party services, including advertising networks,
-    may use cookies or similar technologies in accordance
-    with their own privacy policies.
-  </p>
+    <p>
+      Third-party services, including advertising networks or analytics providers,
+      may use cookies or similar technologies in accordance with
+      their own privacy policies.
+    </p>
 
-  <p>
-    We do not sell, transfer, or disclose user information
-    to third parties.
-  </p>
+    <p>
+      CosmoTime does not sell, transfer, or disclose user information
+      to third parties.
+    </p>
 
-  <p>
-    By using this website, you agree to this privacy policy.
-  </p>
+    <p>
+      By using this website, you acknowledge and agree to this privacy policy.
+    </p>
+  </div>
 </main>
 
 <footer>
-  © 2025 CosmoTime
+  © 2025 CosmoTime — Educational & Informational Project
 </footer>
 
 </body>
