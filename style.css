@@ -3,12 +3,15 @@ body {
   font-family: "Segoe UI", Arial, sans-serif;
   background: radial-gradient(circle at top, #0b1a2a, #000);
   color: #eaeaea;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
+/* HEADER */
 header {
-  padding: 20px;
+  padding: 25px 20px;
   border-bottom: 1px solid #1f2f44;
+  max-width: 1100px;
+  margin: auto;
 }
 
 header h1 {
@@ -18,29 +21,60 @@ header h1 {
 }
 
 nav {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 nav a {
   color: #bcdcff;
-  margin-right: 15px;
+  margin-right: 16px;
   text-decoration: none;
   font-size: 14px;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  color: #7fd7ff;
 }
 
+/* MAIN */
 main {
   max-width: 900px;
-  padding: 40px 20px;
+  padding: 50px 20px;
   margin: auto;
 }
 
+main h2 {
+  font-size: 26px;
+  color: #7fd7ff;
+  margin-bottom: 25px;
+}
+
+main p {
+  margin-bottom: 18px;
+}
+
+/* CONTENT BLOCKS */
+.block {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+/* ARTICLES */
+article {
+  margin-bottom: 35px;
+}
+
+article h3 {
+  color: #9ee6ff;
+  margin-bottom: 10px;
+}
+
+/* FOOTER */
 footer {
   border-top: 1px solid #1f2f44;
-  padding: 20px;
+  padding: 25px;
   text-align: center;
   font-size: 13px;
   color: #aaa;
