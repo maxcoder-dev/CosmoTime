@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="shortcut icon" href="img/timecosmo.png" type="image/x-icon">
 <title>CosmoTime — World Clock</title>
 
 <style>
@@ -149,30 +148,6 @@ footer a:hover{color:#00f2ff}
 </style>
 </head>
 
-<script>
-const API_URL = "https://counterapi.dev/api/cosmotime/online";
-
-async function updateOnline() {
-  try {
-    const res = await fetch(API_URL);
-    const data = await res.json();
-
-    document.getElementById("online").textContent =
-      `🟢 Online: ${data.count}`;
-  } catch (e) {
-    document.getElementById("online").textContent =
-      "🟢 Online: —";
-  }
-}
-
-// обновляем каждые 20 сек
-updateOnline();
-setInterval(updateOnline, 20000);
-</script>
-
-
-
-
 <body>
 
 <!-- MAIN VIEW -->
@@ -263,11 +238,9 @@ setInterval(updateOnline, 20000);
 
 </div>
 
- 
-
 
   <footer>
-    <span id="online">🟢 Online: ...</span> • © 2025 CosmoTime •
+    © 2025 CosmoTime •
     <a href="about.html">About</a> |
     <a href="articles.html">Articles</a> |
     <a href="privacy.html">Privacy Policy</a> |
@@ -370,10 +343,3 @@ setInterval(updateTime,1000);
 
 </body>
 </html>
-
-
-
-
-
-
-
