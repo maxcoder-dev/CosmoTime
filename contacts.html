@@ -3,8 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <title>Contacts — CosmoTime</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #0b1a2a, #000);
+      color: #eaeaea;
+      line-height: 1.7;
+    }
+
+    /* 🌌 subtle stars */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+        radial-gradient(1px 1px at 70% 80%, #8fd3ff, transparent),
+        radial-gradient(1px 1px at 40% 60%, #fff, transparent);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    header {
+      padding: 24px 20px;
+      border-bottom: 1px solid #1f2f44;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 30px;
+      color: #7fd7ff;
+      margin-bottom: 10px;
+    }
+
+    nav a {
+      color: #bcdcff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    main h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+
+    .contact-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 32px;
+      backdrop-filter: blur(6px);
+    }
+
+    .contact-box p {
+      margin-bottom: 18px;
+      font-size: 16px;
+      color: #ddd;
+    }
+
+    .email {
+      font-size: 18px;
+      color: #00f2ff;
+      margin-top: 10px;
+      word-break: break-all;
+    }
+
+    footer {
+      border-top: 1px solid #1f2f44;
+      padding: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
 </head>
+
 <body>
 
 <header>
@@ -20,26 +116,29 @@
 
 <main>
   <h2>Contacts</h2>
-  <p>
-    CosmoTime is an independent informational project.
-  </p>
 
-  <p>
-    For questions, feedback, or cooperation:
-  </p>
+  <div class="contact-box">
+    <p>
+      <strong>CosmoTime</strong> is an independent informational and educational project.
+    </p>
 
-  <p>
-    📧 <strong>Email:</strong><br>
-    maxchesscoder@gmail.com
-  </p>
+    <p>
+      If you have questions, feedback, suggestions, or cooperation inquiries,
+      feel free to contact us.
+    </p>
 
-  <p>
-    We usually respond within 24–48 hours.
-  </p>
+    <p class="email">
+      📧 maxchesscoder@gmail.com
+    </p>
+
+    <p>
+      We usually respond within <strong>24–48 hours</strong>.
+    </p>
+  </div>
 </main>
 
 <footer>
-  © 2025 CosmoTime
+  © 2025 CosmoTime — Educational & Informational Project
 </footer>
 
 </body>
