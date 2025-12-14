@@ -149,6 +149,36 @@ footer a:hover{color:#00f2ff}
 </style>
 </head>
 
+  <script>
+const NAMESPACE = "cosmotime-online";
+const KEY = "users";
+
+// как часто пинговать (мс)
+const PING_INTERVAL = 30000; // 30 секунд
+const EXPIRE_SECONDS = 60;   // пользователь "онлайн" 60 сек
+
+async function pingOnline() {
+  try {
+    const url = `https://api.countapi.xyz/update/${NAMESPACE}/${KEY}?amount=1&expire=${EXPIRE_SECONDS}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    document.getElementById("online").textContent =
+      `🟢 Online: ${data.value}`;
+  } catch (e) {
+    document.getElementById("online").textContent =
+      "🟢 Online: —";
+  }
+}
+
+// первый пинг
+pingOnline();
+
+// регулярный пинг
+setInterval(pingOnline, PING_INTERVAL);
+</script>
+
+
 <body>
 
 <!-- MAIN VIEW -->
@@ -239,9 +269,11 @@ footer a:hover{color:#00f2ff}
 
 </div>
 
+ 
+
 
   <footer>
-    © 2025 CosmoTime •
+    <span id="online">🟢 Online: ...</span> • © 2025 CosmoTime •
     <a href="about.html">About</a> |
     <a href="articles.html">Articles</a> |
     <a href="privacy.html">Privacy Policy</a> |
@@ -344,5 +376,6 @@ setInterval(updateTime,1000);
 
 </body>
 </html>
+
 
 
