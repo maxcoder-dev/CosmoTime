@@ -248,7 +248,7 @@ footer a:hover{color:#00f2ff}
   </footer>
 </div>
 
-<!-- 🔥 FOCUS VIEW -->
+<!-- FOCUS VIEW -->
 <div id="focusView">
   <div id="focusCity"></div>
   <div id="focusTime"></div>
@@ -257,53 +257,90 @@ footer a:hover{color:#00f2ff}
 </div>
 
 <script>
-const clocks=document.querySelectorAll('.clock');
-const focusView=document.getElementById('focusView');
-const mainView=document.getElementById('mainView');
-const focusCity=document.getElementById('focusCity');
-const focusTime=document.getElementById('focusTime');
-const focusDate=document.getElementById('focusDate');
+const clocks = document.querySelectorAll('.clock');
+const focusView = document.getElementById('focusView');
+const mainView = document.getElementById('mainView');
+const focusCity = document.getElementById('focusCity');
+const focusTime = document.getElementById('focusTime');
+const focusDate = document.getElementById('focusDate');
 
-let focusZone=null;
+let focusZone = null;
 
+/* UPDATE TIME */
 function updateTime(){
-  const timeOpt={hour:'2-digit',minute:'2-digit',second:'2-digit'};
-  const dateOpt={weekday:'short',day:'2-digit',month:'short'};
+  const timeOpt = { hour:'2-digit', minute:'2-digit', second:'2-digit' };
+  const dateOpt = { weekday:'short', day:'2-digit', month:'short' };
 
   clocks.forEach(c=>{
-    const zone=c.dataset.zone;
-    const id=c.querySelector('.time').id;
-    document.getElementById(id).textContent=
-      new Date().toLocaleTimeString('en-US',{...timeOpt,timeZone:zone});
-    document.getElementById(id+'-date').textContent=
-      new Date().toLocaleDateString('en-US',{...dateOpt,timeZone:zone});
+    const zone = c.dataset.zone;
+    const timeEl = c.querySelector('.time');
+    const dateEl = c.querySelector('.date');
+
+    if(!timeEl || !dateEl) return;
+
+    const now = new Date();
+    timeEl.textContent = now.toLocaleTimeString('en-US', {
+      ...timeOpt, timeZone: zone
+    });
+    dateEl.textContent = now.toLocaleDateString('en-US', {
+      ...dateOpt, timeZone: zone
+    });
   });
 
   if(focusZone){
-    const now=new Date();
-    focusTime.textContent=now.toLocaleTimeString('en-US',{...timeOpt,timeZone:focusZone});
-    focusDate.textContent=now.toLocaleDateString('en-US',{...dateOpt,timeZone:focusZone});
+    const now = new Date();
+    focusTime.textContent = now.toLocaleTimeString('en-US', {
+      ...timeOpt, timeZone: focusZone
+    });
+    focusDate.textContent = now.toLocaleDateString('en-US', {
+      ...dateOpt, timeZone: focusZone
+    });
   }
 }
 
-clocks.forEach(c=>{
-  c.onclick=()=>{
-    focusZone=c.dataset.zone;
-    focusCity.textContent=c.dataset.city;
-    mainView.style.display='none';
-    focusView.style.display='flex';
-  };
-});
+/* OPEN FOCUS MODE */
+function openFocus(clock){
+  focusZone = clock.dataset.zone;
+  focusCity.textContent = clock.dataset.city;
 
-function closeFocus(){
-  focusZone=null;
-  focusView.style.display='none';
-  mainView.style.display='block';
+  mainView.style.display = 'none';
+  focusView.style.display = 'flex';
+
+  history.pushState(null,'','?city='+clock.dataset.city.toLowerCase());
 }
 
+/*  CLOSE FOCUS MODE */
+function closeFocus(){
+  focusZone = null;
+  focusView.style.display = 'none';
+  mainView.style.display = 'block';
+
+  history.pushState(null,'',location.pathname);
+}
+
+/*  CLICK HANDLERS */
+clocks.forEach(c=>{
+  c.addEventListener('click', ()=>openFocus(c));
+});
+
+/*  URL SUPPORT ?city=tokyo */
+const params = new URLSearchParams(window.location.search);
+const cityFromUrl = params.get('city');
+
+if(cityFromUrl){
+  clocks.forEach(c=>{
+    if(c.dataset.city.toLowerCase() === cityFromUrl.toLowerCase()){
+      openFocus(c);
+    }
+  });
+}
+
+/*  INIT */
 updateTime();
 setInterval(updateTime,1000);
 </script>
 
+
 </body>
 </html>
+
